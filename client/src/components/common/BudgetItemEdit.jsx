@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'
 import {useParams} from 'react-router-dom'
 
-function EditItemElement({
+function BudgetItemEdit({
   categoryKey,
   setEditMode,
   editItemId,
@@ -97,4 +97,4 @@ function EditItemElement({
   );
 }
 
-export default EditItemElement;
+export default BudgetItemEdit;

@@ -3,7 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGreaterThan } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef } from "react";
-import { useUserContext } from '../userData/UserContext';
+import { useUserContext } from '../../userData/UserContext';
 
 function HeaderContainer({ title, budgetType, color, budgetListRef }) {
 

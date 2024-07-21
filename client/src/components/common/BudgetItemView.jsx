@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faMinus } from '@fortawesome/free-solid-svg-icons'
 
-function DefaultItemElement({item, setEditMode, setEditItemId}) {
+function BudgetItemView({item, setEditMode, setEditItemId}) {
 
 
     function handleEdit(){
@@ -32,4 +31,4 @@ function DefaultItemElement({item, setEditMode, setEditItemId}) {
      );
 }
 
-export default DefaultItemElement;
+export default BudgetItemView;

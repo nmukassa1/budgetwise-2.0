@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import DefaultItemElement from './DefaultItemElement';
-import EditItemElement from './EditItemElement';
+import BudgetItemView from './BudgetItemView';
+import BudgetItemEdit from './BudgetItemEdit';
 
 function ListItem({
   item,
@@ -27,13 +26,13 @@ function ListItem({
   return (
     <li>
       {editMode && editItemId === item.id ? (
-        <EditItemElement
+        <BudgetItemEdit
           {...sharedProps}
           defaultName={item.name}
           defaultAmount={item.amount}
         />
       ) : (
-        <DefaultItemElement {...sharedProps} />
+        <BudgetItemView {...sharedProps} />
       )}
     </li>
   );

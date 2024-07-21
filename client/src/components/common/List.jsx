@@ -1,5 +1,5 @@
 import ListItem from "./ListItem";
-import { useUserContext } from '../userData/UserContext';
+import { useUserContext } from '../../userData/UserContext';
 
 function List({
   categoryKey,

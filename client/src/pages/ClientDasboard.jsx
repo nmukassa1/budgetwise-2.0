@@ -2,8 +2,8 @@ import Income from '../components/categories/Income';
 import Expenses from '../components/categories/Expenses';
 import Debt from '../components/categories/Debt';
 import Savings from '../components/categories/Savings';
-import Balance from '../components/Balance';
-import Banner from '../components/Banner';
+import Balance from '../components/common/Balance';
+import Banner from '../components/common/Banner';
 
 import { useUserContext } from '../userData/UserContext';
 import { useLoaderData } from 'react-router-dom';

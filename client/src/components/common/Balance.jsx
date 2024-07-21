@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useUserContext } from '../userData/UserContext';
+import { useUserContext } from '../../userData/UserContext';
 
 const Balance = () => {
   const { userBudget } = useUserContext()

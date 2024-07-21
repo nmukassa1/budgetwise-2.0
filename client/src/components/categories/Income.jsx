@@ -1,6 +1,6 @@
 // src/components/Income.jsx
 import React, { useContext, useEffect, useState } from 'react';
-import FinancialCategory from '../FinancialCategory';
+import FinancialCategory from '../common/FinancialCategory';
 
 const Income = () => {
   const [editMode, setEditMode] = useState(null);
