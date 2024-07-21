@@ -2,10 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'
-import {useParams} from 'react-router-dom'
+import { useUserContext } from '../../userData/UserContext';
 
 function BudgetItemEdit({
-  categoryKey,
   setEditMode,
   editItemId,
   removeItem,
@@ -19,13 +18,20 @@ function BudgetItemEdit({
     budgetType: budgetType
   })
 
+  const {userBudget, setUserBudget} = useUserContext()
+
 
   const inputNameRef = useRef();
   const inputAmountRef = useRef();
 
-  const {id} = useParams()
-
   useEffect(() => {
+    //set form data
+    setFormData({
+      budgetName: item.name,
+      budgetAmount: item.amount,
+      budgetType: budgetType
+    })
+
     inputNameRef.current.focus();
   }, []);
 
@@ -41,15 +47,19 @@ function BudgetItemEdit({
   const saveEditedItem = async (e) => {
     e.preventDefault()
     if (formData.budgetName.trim() === '' || isNaN(formData.budgetAmount) || formData.budgetAmount === '') return;
-    const userID = id;
     try{
-      const result = await axios.post('/api/newItem/' + userID, formData)
-      console.log(result);
-    } catch(err){
-      console.log(err);
+      const result = await axios.put('/api/updateItem/' + item.id, formData);
+      const userData = await axios.get('/api/userData/');
+      setUserBudget(userData.data)
+
+    } catch(error){
+      console.log(error);
+    } finally{
+      setEditMode(false);
     }
-    // setEditMode(false);
   };
+
+
 
   const handleDelete = () => {
     dispatch({ type: removeItem, payload: { id: item.id } });
@@ -59,7 +69,7 @@ function BudgetItemEdit({
   return (
     <>
 
-      <form>
+      {/* <form className='budget-edit-form'> */}
         <div className='budget-item__actions'>
           <button className="delete-btn" onClick={handleDelete}>
             <FontAwesomeIcon icon={faMinus} />
@@ -72,8 +82,8 @@ function BudgetItemEdit({
             className='edit-input-name'
             type="text"
             name='budgetName'
-            placeholder={categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)}
-            value={formData.budgetName}
+            placeholder={budgetType.charAt(0).toUpperCase() + budgetType.slice(1)}
+            value={formData.budgetName || ''}
             onChange={handleChange}
             onKeyDown={(e) => {
               if (e.code === 'Enter') inputAmountRef.current.focus();
@@ -92,7 +102,7 @@ function BudgetItemEdit({
             }}
             ref={inputAmountRef}
           />
-      </form>
+      {/* </form> */}
     </>
   );
 }

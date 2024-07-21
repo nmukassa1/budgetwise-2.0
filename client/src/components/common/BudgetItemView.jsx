@@ -6,9 +6,10 @@ import { faPencil, faMinus } from '@fortawesome/free-solid-svg-icons'
 function BudgetItemView({item, setEditMode, setEditItemId}) {
 
 
-    function handleEdit(){
+    function handleEdit(e){
         setEditMode(true);
         setEditItemId(item.id)
+        // console.log(item);
     }
     function deleteItem(){ 
     }

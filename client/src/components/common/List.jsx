@@ -2,10 +2,6 @@ import ListItem from "./ListItem";
 import { useUserContext } from '../../userData/UserContext';
 
 function List({
-  categoryKey,
-  editMode,
-  setEditMode,
-  editItemId,
   setEditItemId,
   budgetListRef,
   budgetType
@@ -13,10 +9,6 @@ function List({
   const {userBudget} = useUserContext()
 
   const sharedProps = {
-    categoryKey,
-    editMode,
-    setEditMode,
-    editItemId,
     setEditItemId,
     budgetType
   };

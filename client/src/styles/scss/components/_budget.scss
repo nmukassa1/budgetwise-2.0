@@ -35,10 +35,12 @@
 .header-container{
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #999999;
-    padding-bottom: 12px;
 
-    h3 span{
+    h3{
+        margin-top: 0;
+    }
+
+    h3, span{
         margin-left: 20px;
     }
 }
@@ -53,10 +55,10 @@
         display: flex;
         align-items: center;
         border-bottom: 1px solid #999999;
-        padding-bottom: 12px;
-    }
-    li + li{
-        margin-top: 12px;
+        height: 37px;
+        &:nth-child(1){
+            border-top: 1px solid #999999;
+        }
     }
 
     &item__name{
@@ -128,6 +130,10 @@
     width: 60px;
     margin-left: auto;
 
+}
+
+.budget-edit-form{
+    width: 100%;
 }
 
 .budget-item__actions{

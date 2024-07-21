@@ -3,15 +3,9 @@ import React, { useContext, useState } from 'react';
 import FinancialCategory from '../common/FinancialCategory';
 
 const Expenses = () => {
-  const [editMode, setEditMode] = useState(null);
-  const [editItemId, setEditItemId] = useState(null);
 
   const debtProps = {
     title: "Debt",
-    editMode,
-    setEditMode,
-    editItemId,
-    setEditItemId,
     budgetType: 'debt',
     color: 'red'
   };
