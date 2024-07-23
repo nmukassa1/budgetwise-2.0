@@ -98,7 +98,7 @@ function BudgetItemEdit({
             value={formData.budgetAmount}
             onChange={handleChange}
             onKeyDown={(e) => {
-              if (e.code === 'Enter') saveEditedItem();
+              if (e.code === 'Enter') saveEditedItem(e);
             }}
             ref={inputAmountRef}
           />

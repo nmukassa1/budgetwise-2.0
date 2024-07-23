@@ -8,12 +8,12 @@ export const createUser = async (email, password, firstName, lastName) => {
 };
 
 export const getUserByEmail = async (email) => {
-    const res = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    const res = await db.query('SELECT * FROM users WHERE email = $1 ORDER BY id ASC ', [email]);
     return res.rows[0];
 };
 
 export const getUserById = async (id) => {
-    const res = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    const res = await db.query('SELECT * FROM users WHERE id = $1 ORDER BY id ASC ', [id]);
     return res.rows[0];
 };
 
@@ -21,19 +21,19 @@ export const getUserData = async (id) => {
     const userID = id
     try{    
     // Fetch income data
-    const incomeResult = await db.query('SELECT * FROM income WHERE user_id = $1', [userID]);
+    const incomeResult = await db.query('SELECT * FROM income WHERE user_id = $1 ORDER BY id ASC ', [userID]);
     const income = incomeResult.rows;
 
     // Fetch expenses data
-    const expensesResult = await db.query('SELECT * FROM expense WHERE user_id = $1', [userID]);
+    const expensesResult = await db.query('SELECT * FROM expenses WHERE user_id = $1 ORDER BY id ASC ', [userID]);
     const expenses = expensesResult.rows;
 
     // Fetch debt data
-    const debtResult = await db.query('SELECT * FROM debt WHERE user_id = $1', [userID]);
+    const debtResult = await db.query('SELECT * FROM debt WHERE user_id = $1 ORDER BY id ASC ', [userID]);
     const debt = debtResult.rows;
 
     // Fetch savings data
-    const savingsResult = await db.query('SELECT * FROM savings WHERE user_id = $1', [userID]);
+    const savingsResult = await db.query('SELECT * FROM savings WHERE user_id = $1 ORDER BY id ASC ', [userID]);
     const savings = savingsResult.rows;
 
     const data = {

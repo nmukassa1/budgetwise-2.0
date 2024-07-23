@@ -1,17 +1,28 @@
 import React from 'react';
-
+import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { useUserContext } from '../../userData/UserContext';
 
-function BudgetItemView({item, setEditMode, setEditItemId}) {
+function BudgetItemView({item, setEditMode, setEditItemId, budgetType}) {
+
+    const {setUserBudget} = useUserContext()
 
 
-    function handleEdit(e){
+    function handleEdit(){
         setEditMode(true);
         setEditItemId(item.id)
-        // console.log(item);
     }
-    function deleteItem(){ 
+
+    async function deleteItem(){ 
+        const userID = item.id;
+        try{
+            const result = await axios.delete(`/api/deleteItem/${userID}?table=${budgetType}`)
+            const userData = await axios.get(`/api/userData`)
+            setUserBudget(userData.data)
+        }  catch(err){
+            console.error(err)
+        }
     }
 
     return ( 

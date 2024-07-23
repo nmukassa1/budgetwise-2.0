@@ -66,7 +66,7 @@ function Auth() {
                 isRegister ? await register(body) :  await login(body)
                 navigate(`/profile`)
             }catch(error){
-                // console.log(error)
+                console.log(error)
                 switch(error.response.status){
                     case 400:
                         setErrors(error.response.data.errors)

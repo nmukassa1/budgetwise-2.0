@@ -14,7 +14,7 @@ router.put('/updateItem/:id', async (req, res) => {
         const userExist = await db.query(`SELECT * from ${budgetType}`)
 
         if(userExist.rows.length > 0){
-            const result = await db.query(`UPDATE ${budgetType} SET name=$1, amount=$2 WHERE id=$3`, [data])
+            const result = await db.query(`UPDATE ${budgetType} SET name=$1, amount=$2 WHERE id=$3`, [budgetName, budgetAmount, userID])
             res.json(result)
         } 
     }catch(err){
@@ -37,15 +37,26 @@ router.get('/userID', ensureAuthenticated, async (req, res) => {
     res.json(userID)
 })
 
-// router.post('/createNewItem', async (req, res) => {
-//     const {id, table} = req.body
-//     try{
-//         const result = db.query(`INSERT INTO ${table} (user_id) values ($1)`, [id])
-//         res.json(result)
-//     }catch(err){
-//         console.log(err);
-//     }
-// })
+router.post('/createNewItem', async (req, res) => {
+    const {id, table} = req.body
+    try{
+        const result = db.query(`INSERT INTO ${table} (user_id) values ($1)`, [id])
+        res.json(result)
+    }catch(err){
+        console.log(err);
+    }
+})
+
+router.delete('/deleteItem/:id', async (req, res) => {
+    const userID = req.params.id;
+    const table = req.query.table
+    try{
+        await db.query(`DELETE FROM ${table} where id=$1`, [userID])
+        res.json({message: 'Item deleted succefully'})
+    }catch(err){
+        res.json({error: 'Error deleteing item'})
+    }
+})
 
 
 export default router;
