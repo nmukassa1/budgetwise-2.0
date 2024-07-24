@@ -93,6 +93,7 @@
 @media (width > 992px) {
   .show-list {
     height: auto;
+    min-height: 130px;
   }
 }
 

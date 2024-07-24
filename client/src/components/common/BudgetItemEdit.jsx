@@ -3,11 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'
 import { useUserContext } from '../../userData/UserContext';
+import useEditMode from '../../hooks/useEditMode';
 
 function BudgetItemEdit({
-  setEditMode,
-  editItemId,
-  removeItem,
   item,
   budgetType
 }) {
@@ -18,7 +16,8 @@ function BudgetItemEdit({
     budgetType: budgetType
   })
 
-  const {userBudget, setUserBudget} = useUserContext()
+  const {setUserBudget} = useUserContext()
+  const {setEditMode,} = useEditMode()
 
 
   const inputNameRef = useRef();
@@ -61,17 +60,23 @@ function BudgetItemEdit({
 
 
 
-  const handleDelete = () => {
-    dispatch({ type: removeItem, payload: { id: item.id } });
-    setEditMode(false);
-  };
+  async function deleteItem(){ 
+    const userID = item.id;
+    try{
+        const result = await axios.delete(`/api/deleteItem/${userID}?table=${budgetType}`)
+        const userData = await axios.get(`/api/userData`)
+        setUserBudget(userData.data)
+    }  catch(err){
+        console.error(err)
+    }
+}
 
   return (
     <>
 
       {/* <form className='budget-edit-form'> */}
         <div className='budget-item__actions'>
-          <button className="delete-btn" onClick={handleDelete}>
+          <button className="delete-btn" onClick={deleteItem}>
             <FontAwesomeIcon icon={faMinus} />
           </button>
           <button className="edit-btn" onClick={saveEditedItem}>

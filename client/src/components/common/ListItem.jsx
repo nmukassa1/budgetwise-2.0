@@ -1,28 +1,19 @@
 import BudgetItemView from './BudgetItemView';
 import BudgetItemEdit from './BudgetItemEdit';
-import { useState } from 'react';
+import useEditMode from '../../hooks/useEditMode';
 
 function ListItem({
   item,
-  categoryKey,
-  removeItem,
   budgetType
 }) {
 
-  const [editMode, setEditMode] = useState(null);
-  const [editItemId, setEditItemId] = useState(null);
+
+  const {editMode, editItemId} = useEditMode()
 
   const sharedProps = {
     item,
-    categoryKey,
-    editMode,
-    setEditMode,
-    editItemId,
-    setEditItemId,
-    removeItem,
     budgetType
   };
-
 
 
   return (

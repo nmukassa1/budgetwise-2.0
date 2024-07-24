@@ -79,6 +79,7 @@
     max-height: none;
     @include breakpoints.up('lg'){
         height: auto;
+        min-height: 130px; 
     }
 }
 

@@ -9,6 +9,7 @@ router.put('/updateItem/:id', async (req, res) => {
     const userID = req.params.id
     const  {budgetName, budgetAmount, budgetType} = req.body
     const data = [budgetName, budgetAmount, userID] ;
+    console.log(req.body);
     try{
         //DOES ITEM ALREADY EXIST?
         const userExist = await db.query(`SELECT * from ${budgetType}`)
@@ -40,8 +41,9 @@ router.get('/userID', ensureAuthenticated, async (req, res) => {
 router.post('/createNewItem', async (req, res) => {
     const {id, table} = req.body
     try{
-        const result = db.query(`INSERT INTO ${table} (user_id) values ($1)`, [id])
-        res.json(result)
+        const result = await db.query(`INSERT INTO ${table} (user_id) values ($1) RETURNING id`, [id])
+        const newItem = result.rows[0];
+        res.json(newItem)
     }catch(err){
         console.log(err);
     }

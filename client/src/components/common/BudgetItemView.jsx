@@ -3,10 +3,13 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { useUserContext } from '../../userData/UserContext';
+import useEditMode from '../../hooks/useEditMode';
 
-function BudgetItemView({item, setEditMode, setEditItemId, budgetType}) {
+function BudgetItemView({item,
+    budgetType}) {
 
     const {setUserBudget} = useUserContext()
+    const {setEditMode, setEditItemId} = useEditMode()
 
 
     function handleEdit(){
