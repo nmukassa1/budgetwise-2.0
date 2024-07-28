@@ -11,5 +11,7 @@ export default {
         database: process.env.PG_DB,
         password: process.env.PG_PASSWORD,
         port: process.env.PG_PORT,
-    }
+    },
+    email: process.env.EMAIL,
+    emailPassword: process.env.PASSWORD,
 };

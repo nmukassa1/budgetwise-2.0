@@ -11,11 +11,32 @@ import { userLoader } from './loaders/userLoader.jsx'
 import { UserProvider } from './userData/UserContext.jsx'
 import ErrorBoundary from './error/ErrorBoundry.jsx'
 import NotFound from './error/NotFound.jsx'
+import { ThemeProvider, createTheme } from '@mui/material'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#FF00FF', // Matching the pink color for the title
+    },
+    secondary: {
+      main: '#000000', // Black for buttons
+    },
+    error: {
+      main: '#DB4437', // Google red color
+    },
+  },
+});
+
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    ),
+    
     children: [
       {
         index: true,

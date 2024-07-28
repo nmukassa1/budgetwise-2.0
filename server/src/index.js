@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import config from './config/env.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import onLoadRoutes from './routes/onLoadRoutes.js';
 import corsMiddleware from './middlewares/corsMiddleware.js';
 import passportMiddleware from './middlewares/passportMiddleware.js';
 import './config/passport.js';
@@ -31,6 +32,7 @@ passportMiddleware(app);
 
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
+app.use('/api', onLoadRoutes);
 
 app.listen(config.port, () => {
     console.log('Server is running on port ' + config.port);

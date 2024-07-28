@@ -1,10 +1,20 @@
 import db from '../db/index.js';
 import bcrypt from 'bcrypt';
+import { sendEmail } from '../email/sendEmail.js';
 
 export const createUser = async (email, password, firstName, lastName) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const data = [email, hashedPassword, firstName, lastName]
-    const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)', data) ;
+    const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *', data) ;
+    if(res.rows[0]){
+        sendEmail(
+            res.rows[0].email,
+            `You're All Set Up ${res.rows[0].first_name} 😁`,
+            'This is a test email',
+            '<p>This is a test email</p>'
+        );
+    }
+    // console.log(res.rows[0]);
 };
 
 export const getUserByEmail = async (email) => {

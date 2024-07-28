@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { Button, Typography } from "@mui/material";
 import { useAuth } from '../../context/AuthContext';
 
 function Banner() {
@@ -6,8 +6,9 @@ function Banner() {
 
     return ( 
         <div id='banner'>
-             <h1>BudgetWise</h1>
-             <button onClick={logout}>Logout</button>
+          <Typography variant="h6" component={'h1'}>BudgetWise</Typography>
+          <Button onClick={logout} color="secondary">Logout</Button>
+             {/* <button onClick={logout}>Logout</button> */}
         </div>
      );
 }
