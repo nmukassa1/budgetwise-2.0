@@ -26,12 +26,12 @@ const AuthProvider = ({ children }) => {
         checkAuth();
     }, []);
 
-    const login = async (credentials) => {
+    const loginAPI = async (credentials) => {
         const response = await axios.post('/api/login', credentials);
         setIsAuthenticated(true);
     };
 
-    const register = async (credentials) => {
+    const registerAPI = async (credentials) => {
         const response = await axios.post('/api/register', credentials);
         setIsAuthenticated(true);
     };
@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, register }}>
+        <AuthContext.Provider value={{ isAuthenticated, loginAPI, logout, registerAPI }}>
             {children}
         </AuthContext.Provider>
     );

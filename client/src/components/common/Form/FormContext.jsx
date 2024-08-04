@@ -13,7 +13,7 @@ const FormProvider = ({children}) => {
     const [isRegister, setIsRegister] = useState(false);
 
     //Login & Register api functions
-    const { login, register } = useAuth();
+    const { loginAPI, registerAPI } = useAuth();
   
     const [formData, setFormData] = useState({
       email: '',
@@ -55,7 +55,7 @@ const FormProvider = ({children}) => {
           };
   
       try {
-        isRegister ? await register(body) : await login(body);
+        isRegister ? await registerAPI(body) : await loginAPI(body);
         navigate(`/profile`);
       } catch (error) {
         console.log(error);

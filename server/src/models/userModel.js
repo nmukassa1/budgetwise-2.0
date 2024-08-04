@@ -7,11 +7,25 @@ export const createUser = async (email, password, firstName, lastName) => {
     const data = [email, hashedPassword, firstName, lastName]
     const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *', data) ;
     if(res.rows[0]){
+        const {email, first_name} = res.rows[0]
         sendEmail(
-            res.rows[0].email,
-            `You're All Set Up ${res.rows[0].first_name} 😁`,
-            'This is a test email',
-            '<p>This is a test email</p>'
+            email,
+            `You're All Set Up ${first_name} 😁`,
+            null,
+            `<!DOCTYPE html>
+                <html>
+                <head>
+                <meta charset="UTF-8">
+                <title>Welcome to Budgetwise!</title>
+                </head>
+                <body>
+                <p>Hello ${first_name},</p>
+                <p>Thanks for registering.</p>
+                <p>You're now all set up and ready to take back control with your finances.</p>
+                <p>Happy Budgetting,</p>
+                <p><strong>Budgetwise</strong></p>
+                </body>
+                </html>`,
         );
     }
     // console.log(res.rows[0]);

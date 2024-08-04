@@ -16,7 +16,7 @@ const InputCustom = styled(Input)(({ theme, hasError }) => ({
   '& .MuiInputBase-input': {
     textAlign: 'center', // Center align the placeholder and input text
   },
-  '& .MuiInputAdornment-root': {
+  '& .MuiInputAdornment-root': { //Icon
     cursor: 'pointer'
   }
 }));

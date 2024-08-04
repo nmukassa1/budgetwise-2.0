@@ -26,6 +26,7 @@ function Auth() {
 
 
     useEffect(() => {
+      //If user is already logged in and is on sign in page, they'll be redirected to profile page
         async function fetch(){
             try{
                 const result = await axios.get('/api/');
@@ -35,7 +36,7 @@ function Auth() {
             }
         }
         fetch()
-    })
+    }, [])
 
     useEffect(() => {
         if(redirect) navigate('/profile')
