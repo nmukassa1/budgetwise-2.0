@@ -39,7 +39,11 @@ function Auth() {
     }, [])
 
     useEffect(() => {
-        if(redirect) navigate('/profile')
+      if(redirect) {
+        navigate('/profile')
+      }
+      setRedirect(false)
+      
     }, [redirect])
 
   return (

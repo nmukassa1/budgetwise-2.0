@@ -14,4 +14,6 @@ export default {
     },
     email: process.env.EMAIL,
     emailPassword: process.env.PASSWORD,
+    supabaseURL: process.env.SUPABASE_URL,
+    supabaseKEY: process.env.SUPABASE_KEY
 };

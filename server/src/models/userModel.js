@@ -1,6 +1,7 @@
 import db from '../db/index.js';
 import bcrypt from 'bcrypt';
 import { sendEmail } from '../email/sendEmail.js';
+import supabase from '../config/supabase.js';
 
 export const createUser = async (email, password, firstName, lastName) => {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -45,20 +46,16 @@ export const getUserData = async (id) => {
     const userID = id
     try{    
     // Fetch income data
-    const incomeResult = await db.query('SELECT * FROM income WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const income = incomeResult.rows;
+    const income = await getUniqueData('income', userID)
 
     // Fetch expenses data
-    const expensesResult = await db.query('SELECT * FROM expenses WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const expenses = expensesResult.rows;
+    const expenses = await getUniqueData('expenses', userID)
 
     // Fetch debt data
-    const debtResult = await db.query('SELECT * FROM debt WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const debt = debtResult.rows;
+    const debt = await getUniqueData('debt', userID)
 
     // Fetch savings data
-    const savingsResult = await db.query('SELECT * FROM savings WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const savings = savingsResult.rows;
+    const savings = await getUniqueData('savings', userID)
 
     const data = {
         income: income,
@@ -73,4 +70,32 @@ export const getUserData = async (id) => {
     }catch(err){
         console.log(err);
     }
+}
+
+export const getTable = async (table) => {
+    const {data, error} = await supabase.from(table).select()
+    if(data){
+        console.log(data);
+        return data
+    }else{
+        console.log(error);
+        return error
+    }
+}
+
+export const getUniqueData = async (table, id) => {
+   try{
+        const {data, error} = await supabase.from(table).select().eq('user_id', id)
+        if(data){
+            if(data.length === 0){
+                throw new Error('Data not found')
+            }
+            // console.log(data);
+            return data
+        } else{
+            throw error
+        }
+   }catch(err){
+        console.log('Error:', err);
+   }
 }
