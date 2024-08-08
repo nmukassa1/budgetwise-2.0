@@ -21,6 +21,7 @@ function BudgetItemView({item,
         const userID = item.id;
         try{
             const result = await axios.delete(`/api/deleteItem/${userID}?table=${budgetType}`)
+            console.log(result);
             const userData = await axios.get(`/api/userData`)
             setUserBudget(userData.data)
         }  catch(err){

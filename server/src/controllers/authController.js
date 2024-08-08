@@ -48,6 +48,7 @@ export const login = (req, res, next) => {
         if (err) return next(err);
         if (!user) return res.status(400).json(info);
         req.logIn(user, err => {
+            // console.log(user);
             if (err) return next(err);
             res.status(200).json({ message: 'Logged in successfully', user });
         });

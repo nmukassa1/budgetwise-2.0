@@ -5,36 +5,55 @@ import supabase from '../config/supabase.js';
 
 export const createUser = async (email, password, firstName, lastName) => {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const data = [email, hashedPassword, firstName, lastName]
-    const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *', data) ;
-    if(res.rows[0]){
-        const {email, first_name} = res.rows[0]
-        sendEmail(
-            email,
-            `You're All Set Up ${first_name} 😁`,
-            null,
-            `<!DOCTYPE html>
-                <html>
-                <head>
-                <meta charset="UTF-8">
-                <title>Welcome to Budgetwise!</title>
-                </head>
-                <body>
-                <p>Hello ${first_name},</p>
-                <p>Thanks for registering.</p>
-                <p>You're now all set up and ready to take back control with your finances.</p>
-                <p>Happy Budgetting,</p>
-                <p><strong>Budgetwise</strong></p>
-                </body>
-                </html>`,
-        );
+    // const data = [email, hashedPassword, firstName, lastName]
+
+    try{
+        const {data, error} = await supabase.from('users').insert({email: email, password: hashedPassword, first_name: firstName, last_name: lastName}).select()
+        if(error){
+            throw error
+        }
+        // console.log(data);
+    }catch(err){
+        console.log(err);
     }
+
+    // const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *', data) ;
+    // if(res.rows[0]){
+    //     const {email, first_name} = res.rows[0]
+    //     sendEmail(
+    //         email,
+    //         `You're All Set Up ${first_name} 😁`,
+    //         null,
+    //         `<!DOCTYPE html>
+    //             <html>
+    //             <head>
+    //             <meta charset="UTF-8">
+    //             <title>Welcome to Budgetwise!</title>
+    //             </head>
+    //             <body>
+    //             <p>Hello ${first_name},</p>
+    //             <p>Thanks for registering.</p>
+    //             <p>You're now all set up and ready to take back control with your finances.</p>
+    //             <p>Happy Budgetting,</p>
+    //             <p><strong>Budgetwise</strong></p>
+    //             </body>
+    //             </html>`,
+    //     );
+    // }
     // console.log(res.rows[0]);
 };
 
 export const getUserByEmail = async (email) => {
-    const res = await db.query('SELECT * FROM users WHERE email = $1 ORDER BY id ASC ', [email]);
-    return res.rows[0];
+    try{
+        const {data, error} = await supabase.from('users').select('email, password, id').eq('email', email)
+        if(data.length < 1){
+            throw error
+        } 
+        return data[0];
+    }catch(err){
+        console.log(err);
+    }
+
 };
 
 export const getUserById = async (id) => {
@@ -44,6 +63,7 @@ export const getUserById = async (id) => {
 
 export const getUserData = async (id) => {
     const userID = id
+    console.log(id);
     try{    
     // Fetch income data
     const income = await getUniqueData('income', userID)
@@ -83,14 +103,11 @@ export const getTable = async (table) => {
     }
 }
 
-export const getUniqueData = async (table, id) => {
+const getUniqueData = async (table, id) => {
    try{
         const {data, error} = await supabase.from(table).select().eq('user_id', id)
+        // console.log(id);
         if(data){
-            if(data.length === 0){
-                throw new Error('Data not found')
-            }
-            // console.log(data);
             return data
         } else{
             throw error
@@ -99,3 +116,4 @@ export const getUniqueData = async (table, id) => {
         console.log('Error:', err);
    }
 }
+
