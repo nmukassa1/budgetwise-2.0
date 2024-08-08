@@ -1,11 +1,10 @@
 import db from '../db/index.js';
 import bcrypt from 'bcrypt';
-import { sendEmail } from '../email/sendEmail.js';
+import { sendEmail, welcomeEmail } from '../email/sendEmail.js';
 import supabase from '../config/supabase.js';
 
 export const createUser = async (email, password, firstName, lastName) => {
     const hashedPassword = await bcrypt.hash(password, 10);
-    // const data = [email, hashedPassword, firstName, lastName]
 
     try{
         const {data, error} = await supabase.from('users').insert({email: email, password: hashedPassword, first_name: firstName, last_name: lastName}).select()
@@ -13,34 +12,11 @@ export const createUser = async (email, password, firstName, lastName) => {
             throw error
         }
         // console.log(data);
+        await welcomeEmail(data[0].email, data[0].first_name)
     }catch(err){
         console.log(err);
     }
 
-    // const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *', data) ;
-    // if(res.rows[0]){
-    //     const {email, first_name} = res.rows[0]
-    //     sendEmail(
-    //         email,
-    //         `You're All Set Up ${first_name} 😁`,
-    //         null,
-    //         `<!DOCTYPE html>
-    //             <html>
-    //             <head>
-    //             <meta charset="UTF-8">
-    //             <title>Welcome to Budgetwise!</title>
-    //             </head>
-    //             <body>
-    //             <p>Hello ${first_name},</p>
-    //             <p>Thanks for registering.</p>
-    //             <p>You're now all set up and ready to take back control with your finances.</p>
-    //             <p>Happy Budgetting,</p>
-    //             <p><strong>Budgetwise</strong></p>
-    //             </body>
-    //             </html>`,
-    //     );
-    // }
-    // console.log(res.rows[0]);
 };
 
 export const getUserByEmail = async (email) => {
