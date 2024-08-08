@@ -1,6 +1,6 @@
 import db from '../db/index.js';
 import bcrypt from 'bcrypt';
-import { sendEmail, welcomeEmail } from '../email/sendEmail.js';
+import { welcomeEmail } from '../email/sendEmail.js';
 import supabase from '../config/supabase.js';
 
 export const createUser = async (email, password, firstName, lastName) => {
