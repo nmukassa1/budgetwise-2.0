@@ -12,6 +12,8 @@ const FormProvider = ({children}) => {
     const navigate = useNavigate();
     const [isRegister, setIsRegister] = useState(false);
 
+    const [displaySpinner, setDisplaySpinner] = useState(false)
+
     //Login & Register api functions
     const { loginAPI, registerAPI } = useAuth();
   
@@ -35,10 +37,15 @@ const FormProvider = ({children}) => {
   
     useEffect(() => {
       setErrors({});
+      setDisplaySpinner(false)
     }, [isRegister]);
+
+   
   
     async function handleSubmit(e) {
       e.preventDefault();
+
+      setDisplaySpinner(true)
   
       const body = isRegister
         ? {
@@ -88,7 +95,8 @@ const FormProvider = ({children}) => {
       setErrors,
       handleSubmit,
       handleChange,
-  }), [formData, isRegister, errors]);
+      displaySpinner
+  }), [formData, isRegister, errors, displaySpinner]);
 
 
     return (

@@ -1,10 +1,12 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { useForm } from "./FormContext";
 import Inputs from "./Inputs";
 import FormFooter from "./FormFooter";
+import { useEffect } from "react";
 
 function FormComponents() {
-    const {handleSubmit, isRegister} = useForm()
+    const {handleSubmit, isRegister, displaySpinner} = useForm()
+
     return ( 
         <>
         <Box width={'100%'} component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -19,6 +21,7 @@ function FormComponents() {
             >
             {isRegister ? 'Register' : 'Sign in'}
             </Button>
+            {displaySpinner && <CircularProgress sx={{mt: 2}} />}
         </Box>
         <FormFooter />
         </>

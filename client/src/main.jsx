@@ -24,7 +24,7 @@ const theme = createTheme({
     error: {
       main: '#DB4437', // Google red color
     },
-  },
+  }
 });
 
 
