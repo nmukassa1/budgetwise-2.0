@@ -35,7 +35,7 @@ const ClientDashboard = () => {
         <div id="wrapper">
           <Income />
           <Expenses /> 
-          <Debt />
+          {/* <Debt /> */}
           <Savings /> 
           <Balance />   
        </div>

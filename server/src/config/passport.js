@@ -3,12 +3,14 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 import db from '../db/index.js';
 import { getUserByEmail } from '../models/userModel.js';
+import supabase from './supabase.js';
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
 }, async (email, password, done) => {
     try {
         const user = await getUserByEmail(email);
+        // console.log('Passpoer: ', user);
         if (!user) {
             return done(null, false, { errors: {email: 'Incorrect email.' }});
         }
@@ -31,8 +33,9 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     // console.log(id);
     try {
-        const res = await db.query('SELECT * FROM users WHERE id = $1', [id]);
-        const user = res.rows[0];
+        const {data, error} = await supabase.from('users').select('id').eq('id', id).single()
+        const user = data;
+        // console.log(data);
         if (user) {
             // console.log('Deserialized user:', user);
             done(null, user);

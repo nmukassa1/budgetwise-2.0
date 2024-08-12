@@ -1,64 +1,66 @@
 import db from '../db/index.js';
 import bcrypt from 'bcrypt';
-import { sendEmail } from '../email/sendEmail.js';
+import { welcomeEmail } from '../email/sendEmail.js';
+import supabase from '../config/supabase.js';
 
 export const createUser = async (email, password, firstName, lastName) => {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const data = [email, hashedPassword, firstName, lastName]
-    const res = await db.query('INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *', data) ;
-    if(res.rows[0]){
-        const {email, first_name} = res.rows[0]
-        sendEmail(
-            email,
-            `You're All Set Up ${first_name} 😁`,
-            null,
-            `<!DOCTYPE html>
-                <html>
-                <head>
-                <meta charset="UTF-8">
-                <title>Welcome to Budgetwise!</title>
-                </head>
-                <body>
-                <p>Hello ${first_name},</p>
-                <p>Thanks for registering.</p>
-                <p>You're now all set up and ready to take back control with your finances.</p>
-                <p>Happy Budgetting,</p>
-                <p><strong>Budgetwise</strong></p>
-                </body>
-                </html>`,
-        );
+
+    try{
+        const {data, error} = await supabase.from('users').insert({email: email, password: hashedPassword, first_name: firstName, last_name: lastName}).select()
+        if(error){
+            throw error
+        }
+        // console.log(data);
+        await welcomeEmail(data[0].email, data[0].first_name)
+    }catch(err){
+        console.log(err);
     }
-    // console.log(res.rows[0]);
+
 };
 
 export const getUserByEmail = async (email) => {
-    const res = await db.query('SELECT * FROM users WHERE email = $1 ORDER BY id ASC ', [email]);
-    return res.rows[0];
+    try{
+        const {data, error} = await supabase.from('users').select('email, password, id').eq('email', email)
+        if(data.length < 1){
+            throw error
+        } 
+        return data[0];
+    }catch(err){
+        console.log(err);
+    }
+
 };
 
 export const getUserById = async (id) => {
-    const res = await db.query('SELECT * FROM users WHERE id = $1 ORDER BY id ASC ', [id]);
-    return res.rows[0];
+    try{
+        const {data, error} = await supabase.from('users').eq('id', id)
+        if(error){
+            throw error
+        }
+        return data
+    }catch(err){
+        console.error(err)
+    }
+
+    // const res = await db.query('SELECT * FROM users WHERE id = $1 ORDER BY id ASC ', [id]);
+    // return res.rows[0];
 };
 
 export const getUserData = async (id) => {
     const userID = id
     try{    
     // Fetch income data
-    const incomeResult = await db.query('SELECT * FROM income WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const income = incomeResult.rows;
+    const income = await getUniqueData('income', userID)
 
     // Fetch expenses data
-    const expensesResult = await db.query('SELECT * FROM expenses WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const expenses = expensesResult.rows;
+    const expenses = await getUniqueData('expenses', userID)
 
     // Fetch debt data
-    const debtResult = await db.query('SELECT * FROM debt WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const debt = debtResult.rows;
+    const debt = await getUniqueData('debt', userID)
 
     // Fetch savings data
-    const savingsResult = await db.query('SELECT * FROM savings WHERE user_id = $1 ORDER BY id ASC ', [userID]);
-    const savings = savingsResult.rows;
+    const savings = await getUniqueData('savings', userID)
 
     const data = {
         income: income,
@@ -74,3 +76,28 @@ export const getUserData = async (id) => {
         console.log(err);
     }
 }
+
+export const getTable = async (table) => {
+    const {data, error} = await supabase.from(table).select()
+    if(data){
+        return data
+    }else{
+        console.log(error);
+        return error
+    }
+}
+
+const getUniqueData = async (table, id) => {
+   try{
+        const {data, error} = await supabase.from(table).select().eq('user_id', id)
+        // console.log(id);
+        if(data){
+            return data
+        } else{
+            throw error
+        }
+   }catch(err){
+        console.log('Error:', err);
+   }
+}
+

@@ -11,16 +11,20 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send an email
-export const sendEmail = async (to, subject, text, html) => {
+const sendEmail = async (to, subject, text, html) => {
   try {
     // Define the email options
     const mailOptions = { 
       from: config.email, // Sender address
       to: to,                      // List of receivers
       subject: subject,            // Subject line
-      text: text,                  // Plain text body
       html: html,                  // HTML body
     };
+
+      // Conditionally add the text field if it's provided
+      if (text) {
+        mailOptions.text = text;
+      }
 
     // Send the email
     const info = await transporter.sendMail(mailOptions);
@@ -29,6 +33,29 @@ export const sendEmail = async (to, subject, text, html) => {
     console.error('Error sending email: ', error);
   }
 };
+
+export const welcomeEmail = async (email, first_name) => {
+  // console.log(email);
+  await sendEmail(
+    email,
+    `You're All Set Up ${first_name} 😁`,
+    null,
+    `<!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="UTF-8">
+        <title>Welcome to Budgetwise!</title>
+        </head>
+        <body>
+        <p>Hello ${first_name},</p>
+        <p>Thanks for registering.</p>
+        <p>You're now all set up and ready to take back control with your finances.</p>
+        <p>Happy Budgetting,</p>
+        <p><strong>Budgetwise</strong></p>
+        </body>
+        </html>`,
+);
+}
 
 // Example usage
 // sendEmail(

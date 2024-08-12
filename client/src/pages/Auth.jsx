@@ -30,6 +30,7 @@ function Auth() {
         async function fetch(){
             try{
                 const result = await axios.get('/api/');
+                console.log(result);
                 setRedirect(result.data.isAuthenticated)
             } catch(err){
                 console.error(err)
@@ -39,7 +40,11 @@ function Auth() {
     }, [])
 
     useEffect(() => {
-        if(redirect) navigate('/profile')
+      if(redirect) {
+        navigate('/profile')
+      }
+      setRedirect(false)
+      
     }, [redirect])
 
   return (
