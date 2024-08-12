@@ -1,11 +1,13 @@
 import express from 'express';
 import { register, login, logout } from '../controllers/authController.js';
 import validateLoginMiddleware from '../middlewares/validateLoginMiddleware.js'
+import { signUp } from '../controllers/supabaseAuth.js';
 
 
 const router = express.Router();
 
 router.post('/register', validateLoginMiddleware, register);
+// router.post('/register', validateLoginMiddleware, signUp);
 router.post('/login', validateLoginMiddleware, login);
 router.post('/logout', logout);
 

@@ -33,13 +33,22 @@ export const getUserByEmail = async (email) => {
 };
 
 export const getUserById = async (id) => {
-    const res = await db.query('SELECT * FROM users WHERE id = $1 ORDER BY id ASC ', [id]);
-    return res.rows[0];
+    try{
+        const {data, error} = await supabase.from('users').eq('id', id)
+        if(error){
+            throw error
+        }
+        return data
+    }catch(err){
+        console.error(err)
+    }
+
+    // const res = await db.query('SELECT * FROM users WHERE id = $1 ORDER BY id ASC ', [id]);
+    // return res.rows[0];
 };
 
 export const getUserData = async (id) => {
     const userID = id
-    console.log(id);
     try{    
     // Fetch income data
     const income = await getUniqueData('income', userID)
@@ -71,7 +80,6 @@ export const getUserData = async (id) => {
 export const getTable = async (table) => {
     const {data, error} = await supabase.from(table).select()
     if(data){
-        console.log(data);
         return data
     }else{
         console.log(error);
