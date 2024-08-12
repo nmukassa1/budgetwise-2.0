@@ -11,6 +11,8 @@ import { useLoaderData } from 'react-router-dom';
 
  
 import { useEffect } from 'react';
+import { Grid } from '@mui/material';
+import Sidebar from '../components/common/Sidebar';
 
 const ClientDashboard = () => {
 
@@ -22,24 +24,44 @@ const ClientDashboard = () => {
     setUserBudget(userData)
   }, [])
 
-
-
-
-
-
   return (
     <>
      {userData && (
-       <div>
-        <Banner />
-        <div id="wrapper">
-          <Income />
-          <Expenses /> 
-          {/* <Debt /> */}
-          <Savings /> 
-          <Balance />   
-       </div>
-     </div>
+      <Grid container>
+
+        <Grid component={'aside'} item xs='2'>
+          <Sidebar />
+        </Grid>
+
+        <Grid item xs='10'>
+          <div>
+            <Grid container
+              spacing={2}
+              justifyContent="center" // Centers the grid horizontally
+              alignItems="center"     // Centers the grid vertically
+              sx={{ minHeight: '100vh' }} // Ensures the grid takes full view 
+              >
+              <Grid item xs={12} sm={6}>
+                <Income />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Expenses /> 
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Savings /> 
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                {/* <Savings />  */}
+              </Grid>
+              
+              {/* <Debt /> */}
+              
+              <Balance />   
+            </Grid>
+          </div>
+        </Grid>
+      </Grid>
+       
      )}
     </>
   );
