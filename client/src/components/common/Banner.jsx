@@ -7,7 +7,7 @@ function Banner() {
     return ( 
         <div id='banner'>
           <Typography variant="h6" component={'h1'}>BudgetWise</Typography>
-          <Button onClick={logout} color="secondary">Logout</Button>
+          <Button onClick={logout} color="primary">Logout</Button>
              {/* <button onClick={logout}>Logout</button> */}
         </div>
      );

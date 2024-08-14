@@ -16,8 +16,7 @@ function FormComponents() {
             type="submit"
             fullWidth
             variant="contained"
-            color="secondary"
-            sx={{ mt: 2, color: 'white', padding: '10px', borderRadius: '999px' }}
+            sx={{ mt: 2, color: 'white', background: 'black', padding: '10px', borderRadius: '999px' }}
             >
             {isRegister ? 'Register' : 'Sign in'}
             </Button>

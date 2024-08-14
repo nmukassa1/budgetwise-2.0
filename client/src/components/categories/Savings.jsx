@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import FinancialCategory from '../common/FinancialCategory';
 
-const Expenses = () => {
+const Savings = () => {
 
   const savingsProps = {
     title: "Savings",
@@ -15,4 +15,4 @@ const Expenses = () => {
   );
 };
 
-export default Expenses;
+export default Savings;
