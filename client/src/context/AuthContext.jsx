@@ -9,14 +9,12 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
 
-
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('/api/auth/check');
-                // console.log(response);
                 setIsAuthenticated(response.data.authenticated);
             } catch (error) {
                 setIsAuthenticated(false);
@@ -36,13 +34,15 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
     };
 
-    const logout = async () => {
-        await axios.post('/api/logout');
+    const logoutAPI = async () => {
+        const result = await axios.post('/api/logout');
         setIsAuthenticated(false);
     };
+    
+
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, loginAPI, logout, registerAPI }}>
+        <AuthContext.Provider value={{ isAuthenticated, loginAPI, logoutAPI, registerAPI }}>
             {children}
         </AuthContext.Provider>
     );

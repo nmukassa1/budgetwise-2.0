@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, LinearProgress, Box, Button, ListItem, ListItemText } from '@mui/material';
 
 function GoalTracker({item}) {
-    console.log(item);
-    
-  // Sample goal data
-  const goalName = '6m Emergency';
-  const targetAmount = 1000;  // Target amount for the goal
-  const [currentAmount, setCurrentAmount] = useState(300);  // Current amount saved
 
   // Calculate the progress percentage
   const progress = (item.amount / item.target) * 100;
@@ -17,8 +11,7 @@ function GoalTracker({item}) {
   const resetProgress = () => setCurrentAmount(0);
 
   return (
-    // <Card sx={{ maxWidth: 400, padding: 2 }}>
-      <ListItem sx={{display: 'block'}}>
+      <ListItem disablePadding sx={{display: 'block'}}>
         <ListItemText
             primary={item.name}
             sx={{ textAlign: 'left' }}
@@ -37,7 +30,6 @@ function GoalTracker({item}) {
           <Button variant="outlined" color="error" onClick={resetProgress}>Reset</Button>
         </Box> */}
       </ListItem>
-    // </Card>
   );
 }
 

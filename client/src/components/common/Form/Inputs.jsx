@@ -5,13 +5,13 @@ import { useTheme } from "@emotion/react";
 import { useEffect, useState } from "react";
 
 
-const InputCustom = styled(Input)(({ theme, hasError }) => ({
+const InputCustom = styled(Input)(({ theme, haserror }) => ({
   border: '1px solid',
-  borderColor: hasError ? 'red' : 'rgba(0, 0, 0, 0.23)',
+  borderColor: haserror ? 'red' : 'rgba(0, 0, 0, 0.23)',
   borderRadius: '50px',
   padding: '10px 20px',
   '&:focus-within': {
-    borderColor: hasError ? 'red' : theme.palette.primary.main,
+    borderColor: haserror ? 'red' : theme.palette.primary.main,
   },
   '& .MuiInputBase-input': {
     textAlign: 'center', // Center align the placeholder and input text
@@ -50,7 +50,7 @@ function Inputs() {
                       autoComplete="First Name"
                       value={formData.firstName}
                       onChange={handleChange}
-                      hasError={!!errors.firstName}
+                      haserror={!!errors.firstName ? 'true' : undefined}
                     />
                     {errors.firstName && <FormHelperText>{errors.firstName}</FormHelperText>}
                   </FormControl>
@@ -68,7 +68,7 @@ function Inputs() {
                       autoComplete="lname"
                       value={formData.lastName}
                       onChange={handleChange}
-                      hasError={!!errors.lastName}
+                      haserror={!!errors.lastName ? 'true' : undefined}
                     />
                     {errors.lastName && <FormHelperText>{errors.lastName}</FormHelperText>}
                   </FormControl>
@@ -88,7 +88,7 @@ function Inputs() {
                 autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
-                hasError={!!errors.email}
+                haserror={!!errors.firstName ? 'true' : undefined}
               />
               {errors.email && <FormHelperText>{errors.email}</FormHelperText>}
             </FormControl>
@@ -109,7 +109,7 @@ function Inputs() {
                   </InputAdornment>}
                 value={formData.password}
                 onChange={handleChange}
-                hasError={!!errors.password}
+                haserror={!!errors.password ? 'true' : undefined}
               />
               {errors.password && <FormHelperText>{errors.password}</FormHelperText>}
             </FormControl>
@@ -127,11 +127,11 @@ function Inputs() {
                 autoComplete="current-password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                hasError={!!errors.confirmPassword}
+                haserror={!!errors.confirmPassword ? 'true' : undefined}
               />
               {errors.confirmPassword && <FormHelperText>{errors.confirmPassword}</FormHelperText>}
             </FormControl>
-            )}
+            )} 
         </>
      );
 }

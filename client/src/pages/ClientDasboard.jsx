@@ -20,7 +20,7 @@ const ClientDashboard = () => {
      {userData && (
       <Grid container>
 
-        <Grid component={'aside'} item xs='2'>
+        <Grid component={'aside'} item xs={2} sx={{borderRight: '1px solid hsl(0,0%,90%)', overflow: 'hidden'}}>
           <Sidebar />
         </Grid>
 

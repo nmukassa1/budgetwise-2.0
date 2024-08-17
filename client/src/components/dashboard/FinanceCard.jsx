@@ -3,12 +3,10 @@ import {
     CardContent,
     Typography,
     List,
-    ListItem,
-    ListItemText,
-    ListItemIcon,
     Divider,
     IconButton,
-    Box
+    Box,
+    Button
   } from '@mui/material';
   import { Circle as CircleIcon, MoreHoriz } from '@mui/icons-material';
   import React from "react";
@@ -32,13 +30,20 @@ import GoalTracker from './GoalTracker';
     const items = userBudget[table] || [];
   
     return (
-      <Card sx={{ width: '345px', height: '200px', overflow: 'scroll' }}>
+      <Card sx={{ width: '265px', height: '200px', overflow: 'scroll', border: '1px solid black', borderRadius: '10px' }}>
         <CardContent>
-          <Typography variant="h6" component="div" sx={{zIndex: '999', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: '0', background: 'white' }}>
+          <Typography component="h1" sx={{fontSize: '.9rem', zIndex: '999', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: '0', background: 'white' }}>
             {title}
+           <Box sx={{position: 'relative'}}>
             <IconButton size="small">
               <MoreHoriz />
             </IconButton>
+
+            <Box sx={{position: 'absolute', right: '0', background: 'white', border: '1px solid', fontSize: '.7rem', width: '100px'}}>
+              <Button sx={{fontSize: 'inherit', color: 'black'}}>Create Budget</Button>
+              <Button sx={{fontSize: 'inherit', color: 'black'}}>Edit</Button>
+            </Box>
+           </Box>
           </Typography>
           
           <Box>

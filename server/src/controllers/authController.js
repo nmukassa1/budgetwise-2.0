@@ -24,6 +24,8 @@ export const register = async (req, res, next) => {
         const user = await getUserByEmail(email)
         req.logIn(user, err => {
             if (err) {return next(err)}
+            console.log(user);
+            
             res.status(201).json({ message: 'User registered successfully', user });
         })
     } catch (err) {
@@ -58,7 +60,8 @@ export const login = (req, res, next) => {
 export const logout = (req, res) => {
     req.logout(err => {
         if (err) return res.status(500).json({ message: 'Logout failed' });
-        res.status(200).json({ message: 'Logged out successfully' });
+        // res.redirect('/')
+        res.status(200).json({ message: 'Logged out successfully', redirectTo: '/' });
     });
 };
 

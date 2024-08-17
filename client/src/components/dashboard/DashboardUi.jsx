@@ -6,12 +6,12 @@ import FinanceCard from "./FinanceCard";
 
 function DshboardUi() {
     return ( 
-        <Grid item xs={10}>
+        <Grid item xs={10} sx={{background: "#F9FAFB"}}>
             <Grid
               container
               flexDirection={'column'}
               ml={2}
-              sx={{ minHeight: '100vh', width: '200px', gap: '10px'}} // Ensures the Box takes full view 
+              sx={{ minHeight: '100vh', gap: '10px', justifyContent: 'space-around'}} // Ensures the Box takes full view 
               >
                 <Income />
                 <Expenses />

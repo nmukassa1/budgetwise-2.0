@@ -33,7 +33,7 @@ router.get('/userData/', ensureAuthenticated, async (req, res) => {
 })
 
 router.get('/userID', ensureAuthenticated, async (req, res) => {
-    const userID = req.user.id
+    const userID = req.user
     res.json(userID)
 })
 

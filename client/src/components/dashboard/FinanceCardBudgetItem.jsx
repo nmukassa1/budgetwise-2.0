@@ -3,7 +3,7 @@ import { Circle as CircleIcon } from '@mui/icons-material';
 
 function FinanceCardBudgetItem({item}) {
     return ( 
-        <ListItem>
+        <ListItem disablePadding>
             <ListItemIcon sx={{ minWidth:'0', marginRight: '10px'}}>
                 <CircleIcon sx={{ fontSize: 12 }} />
             </ListItemIcon>

@@ -33,7 +33,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     // console.log(id);
     try {
-        const {data, error} = await supabase.from('users').select('id').eq('id', id).single()
+        const {data, error} = await supabase.from('users').select().eq('id', id).single()
         const user = data;
         // console.log(data);
         if (user) {

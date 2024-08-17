@@ -9,9 +9,7 @@ const ProtectedRoute = ({ children }) => {
 
     useEffect(() => {
         if (!isAuthenticated) {
-            setTimeout(() => {
-                navigate('/');
-            }, 3000)
+            navigate('/');
         }
     }, [isAuthenticated]);
 

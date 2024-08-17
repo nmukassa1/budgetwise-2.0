@@ -1,25 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
 import {
   Container,
   Box,
-  Typography,
-  Button,
-  TextField,
-  Link,
   CssBaseline,
-  Grid
 } from '@mui/material';
 import Form from "../components/common/Form/Form";
 import FormIntro from "../components/common/Form/Intro";
-import FormFooter from "../components/common/Form/FormFooter";
 import axios from "axios";
 
 
 function Auth() {
-  const [isRegister, setIsRegister] = useState(false);
   const [redirect, setRedirect] = useState(false)
 
   const navigate = useNavigate()
@@ -30,7 +22,7 @@ function Auth() {
         async function fetch(){
             try{
                 const result = await axios.get('/api/');
-                console.log(result);
+                // console.log(result);
                 setRedirect(result.data.isAuthenticated)
             } catch(err){
                 console.error(err)
