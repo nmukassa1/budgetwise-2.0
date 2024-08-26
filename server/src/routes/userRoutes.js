@@ -38,9 +38,11 @@ router.get('/userID', ensureAuthenticated, async (req, res) => {
 })
 
 router.post('/createNewItem', async (req, res) => {
-    const {id, table} = req.body
+    const {id, table, amount, name} = req.body
+    console.log(req.body);
+    
     try{
-        const {data, error} = await supabase.from(table).insert({user_id: id}).select()
+        const {data, error} = await supabase.from(table).insert({user_id: id, name: name, amount: amount}).select()
         if(error) {
             throw error
         }

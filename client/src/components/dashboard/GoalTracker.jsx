@@ -18,12 +18,13 @@ function GoalTracker({item}) {
             primaryTypographyProps={{ fontSize: '.875rem' }}
         />
 
+        <LinearProgress variant="determinate" value={progress} sx={{ mt: '3px', height: '5px', borderRadius: 5 }} />
+
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="body2">£{item.amount}</Typography>
-          <Typography variant="body2">{progress}%</Typography>
+          <Typography variant="body2">{progress.toFixed(2)}%</Typography>
         </Box>
 
-        <LinearProgress variant="determinate" value={progress} sx={{ mt: '3px', height: '5px', borderRadius: 5 }} />
 
         {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
           <Button variant="contained" onClick={addProgress}>Add £50</Button>

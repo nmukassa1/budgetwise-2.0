@@ -40,7 +40,9 @@ const FormProvider = ({children}) => {
       setDisplaySpinner(false)
     }, [isRegister]);
 
-   
+   useEffect(() => {
+
+   }, [errors])
   
     async function handleSubmit(e) {
       e.preventDefault();
@@ -62,7 +64,7 @@ const FormProvider = ({children}) => {
           };
   
       try {
-        isRegister ? await registerAPI(body) : await loginAPI(body);
+         const res = isRegister ? await registerAPI(body) : await loginAPI(body);
         navigate(`/profile`);
       } catch (error) {
         console.log(error);
@@ -83,6 +85,8 @@ const FormProvider = ({children}) => {
             alert(error.response.data.message);
             break;
         }
+      } finally {
+        setDisplaySpinner(false); // Hide spinner after the process completes
       }
     }
 

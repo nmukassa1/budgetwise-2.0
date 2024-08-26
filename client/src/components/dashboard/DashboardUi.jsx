@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import Income from "../categories/Income";
 import Savings from '../categories/Savings';
 import Expenses from '../categories/Expenses';
+import Balance from '../common/Balance';
 import FinanceCard from "./FinanceCard";
 
 function DshboardUi() {
@@ -16,6 +17,7 @@ function DshboardUi() {
                 <Income />
                 <Expenses />
                 <Savings />
+                <Balance />
               
             </Grid>
         </Grid>

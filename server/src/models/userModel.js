@@ -89,7 +89,7 @@ export const getTable = async (table) => {
 
 const getUniqueData = async (table, id) => {
    try{
-        const {data, error} = await supabase.from(table).select().eq('user_id', id)
+        const {data, error} = await supabase.from(table).select().eq('user_id', id).order('id', { ascending: true });
         // console.log(id);
         if(data){
             return data

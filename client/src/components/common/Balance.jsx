@@ -14,7 +14,7 @@ const Balance = () => {
   const totalDebt = add(debt)
   const totalSavings = add(savings)
 
-  const balance = (totalIncome - totalExpenses - totalDebt - totalSavings).toLocaleString('en-UK', {style: 'currency', currency: 'GBP'});
+  const balance = (totalIncome + totalExpenses - totalDebt - totalSavings).toLocaleString('en-UK', {style: 'currency', currency: 'GBP'});
 
   return (
     <div className='balance'>
