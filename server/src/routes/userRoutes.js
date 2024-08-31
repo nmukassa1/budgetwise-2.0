@@ -6,11 +6,11 @@ import supabase from '../config/supabase.js';
 
 const router = express.Router();
 
-router.put('/updateItem/:id', async (req, res) => {
-    const item = req.params.id
-    const  {budgetName, budgetAmount, budgetType} = req.body
+router.put('/updateBudget/:id', async (req, res) => {
+    const id = req.params.id
+    const  {name, amount, table} = req.body
     try{
-        const {data, error} = await supabase.from(budgetType).update({name: budgetName, amount: budgetAmount}).eq('id', item).select()
+        const {data, error} = await supabase.from(table).update({name: name, amount: amount}).eq('id', id).select()
         if(error){
             throw error
         } 
@@ -37,12 +37,12 @@ router.get('/userID', ensureAuthenticated, async (req, res) => {
     res.json(userID)
 })
 
-router.post('/createNewItem', async (req, res) => {
-    const {id, table, amount, name} = req.body
+router.post('/createBudget', async (req, res) => {
+    const {id, table, amount, name, color} = req.body
     console.log(req.body);
     
     try{
-        const {data, error} = await supabase.from(table).insert({user_id: id, name: name, amount: amount}).select()
+        const {data, error} = await supabase.from(table).insert({user_id: id, name: name, amount: amount, color: color}).select()
         if(error) {
             throw error
         }

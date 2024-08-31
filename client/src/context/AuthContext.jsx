@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -8,6 +9,8 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
+
+    // const navigate = useNavigate();
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -34,9 +37,11 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
     };
 
-    const logoutAPI = async () => {
+    const logoutAPI = async (e) => {
+        e.preventDefault()
         const result = await axios.post('/api/logout');
         setIsAuthenticated(false);
+        
     };
     
 

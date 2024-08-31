@@ -39,7 +39,7 @@ import CardName from './Card/CardName';
       <Card sx={{ width: '265px', height: '200px', overflow: 'scroll', border: '1px solid black', borderRadius: '10px' }}>
         <CardContent>
           <CardName title={title} />
-          <CardBody items={items} isGoal={isGoal} />
+          <CardBody items={items} isGoal={isGoal} table={table} />
         </CardContent>
       </Card>
     );

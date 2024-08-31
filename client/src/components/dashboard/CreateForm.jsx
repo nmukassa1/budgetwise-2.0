@@ -9,6 +9,14 @@ function CreateForm({ setToggleModal, table }) {
     const { setUserBudget } = useUserContext();
     const [formData, setFormData] = useState({ name: '', amount: '', table });
 
+    function getRandomHSLColor() {
+        const h = Math.floor(Math.random() * 360); // Hue: 0-359
+        const s = Math.floor(Math.random() * 101) + 50; // Saturation: 0-100%
+        const l = Math.floor(Math.random() * 101); // Lightness: 0-100%
+
+        return `hsl(${h}, ${s}%, ${l}%)`;
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
@@ -19,7 +27,8 @@ function CreateForm({ setToggleModal, table }) {
         try {
           const userID = await axios.get('/api/userID');
           const { id } = userID.data;
-          await axios.post('/api/createNewItem', { id, ...formData });
+          const color = getRandomHSLColor();
+          await axios.post('/api/createBudget', {color, id, ...formData });
           
           // Fetch updated user data
           const userData = await axios.get('/api/userData/');
@@ -30,8 +39,9 @@ function CreateForm({ setToggleModal, table }) {
           setToggleModal(false);
           setFormData({ name: '', amount: '', table });
         }
-        
-      }
+    }
+
+   
 
   return (
     <>

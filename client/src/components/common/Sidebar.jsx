@@ -67,18 +67,7 @@ function Sidebar() {
             <Box>
                 <DashboardLink text="Help" IconComponent={InfoIcon} to='/help' exact={true} />
                 <DashboardLink text="Settings"  IconComponent={SettingsIcon} to='/settings' exact={true}/>
-                {/* <DashboardLink text="Logout" IconComponent={LogoutIcon} to='/#'  exact={true} onClick={logoutAPI} /> */}
-
-                <Button onClick={logoutAPI}
-                sx={style}
-                >
-                    <Box sx={{ display: 'flex', alignItems: 'center', mr: 1 }}>
-                        <LogoutIcon />
-                    </Box>
-                    <Typography variant="body1" sx={{ color: 'black' }}>
-                        Logout
-                    </Typography>
-                </Button>
+                <DashboardLink text="Logout" IconComponent={LogoutIcon} to='/'  exact={true} onClick={logoutAPI} />
 
                 {/* Account Component */}
                 <Box mt={1} pt={2} sx={{display: 'flex', alignItems: 'center', gap: '10px', borderTop: '1px solid hsl(0,0%,60%)'}}>
