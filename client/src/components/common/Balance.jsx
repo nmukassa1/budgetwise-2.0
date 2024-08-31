@@ -6,7 +6,9 @@ const Balance = () => {
   const { income, expenses, debt, savings } = userBudget;
 
   function add(budget){
-    return budget.reduce((acc, item) => acc + Number(item.amount), 0)
+    //item.depsoit is used for the savings table
+    //item.amount is used for the other tables
+    return budget.reduce((acc, item) => acc + Number(item.deposit || item.amount), 0)
   }
 
   const totalIncome = add(income)

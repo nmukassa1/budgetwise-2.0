@@ -45,8 +45,9 @@ function EditForm({ setToggleModal, table }) {
       }
     }
 
+
     try {
-      await axios.put('/api/updateBudget/' + id, { ...budget, table });
+      await axios.put(`/api/updateBudget/${table}/${id}`, budget);
       const userData = await axios.get('/api/userData/');
       setUserBudget(userData.data);
 
@@ -65,17 +66,13 @@ function EditForm({ setToggleModal, table }) {
     }
   }, [userBudget, table, setToggleModal]);
 
-  useEffect(() => {
-    console.log(error); 
-  },[error])
-
   return (
     <>
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         Edit Budget
       </Typography>
       <Box component="form" noValidate sx={{ height: '100%' }}>
-        <List>
+        <List sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
           {budgetList.map((budget) => (
             <BudgetItem
               key={budget.id}

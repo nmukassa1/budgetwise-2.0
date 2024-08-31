@@ -25,7 +25,7 @@ const CardBody = React.memo(({ items, isGoal, table }) => {
             {!isGoal ? (
               <FinanceCardBudgetItem item={item} table={table} />
             ) : (
-              <GoalTracker item={item} />
+              <GoalTracker item={item} table={table} />
             )}
             {index < items.length - 1 && <Divider />}
           </React.Fragment>

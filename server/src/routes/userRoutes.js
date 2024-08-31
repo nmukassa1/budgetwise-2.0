@@ -6,11 +6,12 @@ import supabase from '../config/supabase.js';
 
 const router = express.Router();
 
-router.put('/updateBudget/:id', async (req, res) => {
+router.put('/updateBudget/:table/:id', async (req, res) => {
     const id = req.params.id
-    const  {name, amount, table} = req.body
+    const table = req.params.table
+    const {name, amount} = req.body
     try{
-        const {data, error} = await supabase.from(table).update({name: name, amount: amount}).eq('id', id).select()
+        const {data, error} = await supabase.from(table).update(!name ? req.body : {name: name, amount: amount}).eq('id', id).select()
         if(error){
             throw error
         } 

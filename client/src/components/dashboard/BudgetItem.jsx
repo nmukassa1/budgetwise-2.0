@@ -4,11 +4,10 @@ import React from "react";
 
 const BudgetItem = React.memo(({ budget, handleChange, updateBudget, deleteBudget, error }) => {
   const { id, name, amount } = budget;
-  console.log(error);
   
 
   return (
-    <ListItem disablePadding>
+    <ListItem disablePadding sx={{width: 'fit-content', gap: '10px'}}>
       <FormControl>
         <Input
           sx={{ border: '1px solid' }}
