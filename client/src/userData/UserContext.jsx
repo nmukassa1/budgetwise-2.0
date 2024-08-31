@@ -13,6 +13,8 @@ export function UserProvider({ children }) {
             debt: [],
         }
     )
+
+  
     return (
         <UserContext.Provider value={{ userBudget, setUserBudget }}>
             {children}

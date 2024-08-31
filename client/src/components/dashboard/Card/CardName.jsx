@@ -1,8 +1,12 @@
 import { MoreHoriz } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useRef, useState } from "react";
+import DashboardModal from "../DashboardModal";
 
 function CardName({title}) {
+
+  const table = title.toLowerCase().replace(/\s/g, '');
+  
 
     const selectionRef = useRef()
 
@@ -47,7 +51,7 @@ function CardName({title}) {
                 <Button className='edit' onClick={openModal} sx={{fontSize: 'inherit', color: 'black', width: '100%', '&:hover': { background: 'hsla(0, 0%, 90%)'}}}>Edit</Button>
               </Box>
 
-                {/* <DashboardModal modalFormToOpen={modalFormToOpen} name={name} toggleModal={toggleModal} setToggleModal={setToggleModal} /> */}
+                <DashboardModal modalFormToOpen={modalFormToOpen} table={table} toggleModal={toggleModal} setToggleModal={setToggleModal} />
             </Box>
         </Typography>
       );
