@@ -10,10 +10,28 @@ const ClientDashboard = () => {
   const userData = useLoaderData()
 
   const {userBudget, setUserBudget} = useUserContext()
+
+  function calculatePercentage(expenses, income) {
+    // Calculate the total income
+    const totalIncome = income.reduce((sum, source) => sum + source.amount, 0);
+
+    // Calculate the percentage of income spent on each expense
+    return expenses.map(expense => {
+        const percentage = ((expense.amount / totalIncome) * 100).toFixed(2);
+        return {
+            ...expense,
+            percentageSpent: `${percentage}%`
+        };
+    });
+}
   
   useEffect(() => {
     setUserBudget(userData)
   }, [])
+  useEffect(() => {
+    console.log(calculatePercentage(userBudget.expenses, userBudget.income))
+    console.log(calculatePercentage(userBudget.savings, userBudget.income))
+  }, [userBudget])
 
   return (
     <>

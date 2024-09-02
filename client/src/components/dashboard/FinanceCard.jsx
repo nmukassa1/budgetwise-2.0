@@ -17,6 +17,7 @@ import GoalTracker from './GoalTracker';
 import { useRef } from 'react';
 import CardBody from './Card/CardBody';
 import CardName from './Card/CardName';
+import CardBase from '../common/CardBase';
 // import DashboardModal from './DashboardModal';
   
   function FinanceCard({ name, isGoal }) {
@@ -36,12 +37,12 @@ import CardName from './Card/CardName';
 
   
     return (
-      <Card sx={{ width: '265px', height: '200px', overflow: 'scroll', border: '1px solid black', borderRadius: '10px' }}>
+      <CardBase>
         <CardContent>
           <CardName title={title} />
           <CardBody items={items} isGoal={isGoal} table={table} />
         </CardContent>
-      </Card>
+      </CardBase>
     );
   }
   
